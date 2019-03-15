@@ -5,15 +5,15 @@ public class ThreadClient extends Thread {
 	
 	//Attributs
 	int numeroClient;
-	Serveur serveur;
+	Server serveur;
 	Socket socketClient;
 	Donnee data;
 	boolean stop;
 	
 	//Constructeur	
-	public ThreadClient(Serveur s, Socket so) {
+	public ThreadClient(Server s, Socket so) {
 	    serveur = s;
-	    numeroClient = serveur.numeroDernierClient();
+	    numeroClient = serveur.getLastClientNumber();
 	    socketClient = so;
 	}
 	
@@ -30,25 +30,25 @@ public class ThreadClient extends Thread {
 	    	  switch(data.getType()) {
 				case SEQUENCE:
 			        Sequence s = data.getSeq();
-			        serveur.dessiner(numeroClient, s);
-			        serveur.informerClientsDessin();
+			        serveur.draw(numeroClient, s);
+			        serveur.updateClientsDrawing();
 					break;
 				case MESSAGE:
 					String msg = data.getMes();
-					serveur.actualiserMessage(numeroClient, msg);
+					serveur.chat(numeroClient, msg);
 					System.out.println("serveur recoit " + msg);
-					serveur.informerClientsChat();
+					serveur.updateClientsChat();
 					break;
 				case ACTION:
 				  if(data.getAction()==0) {
-				    serveur.defaire(numeroClient);
-				    serveur.informerClientsDessin();
+				    serveur.undo(numeroClient);
+				    serveur.updateClientsDrawing();
 				  }else if(data.getAction()==1) {
-				    serveur.refaire(numeroClient);
-				    serveur.informerClientsDessin();
+				    serveur.redo(numeroClient);
+				    serveur.updateClientsDrawing();
 				  }else if(data.getAction()==2) {
-					serveur.nouveau();
-					serveur.informerClientsDessin();
+					serveur.startNew();
+					serveur.updateClientsDrawing();
 				  }
 				  break;
 			default:
