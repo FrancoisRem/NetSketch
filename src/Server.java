@@ -43,7 +43,7 @@ public class Server {
 	}
 
 	public void draw(int client, Sequence s) {
-		s.infoClient(client);
+		s.getClientNb(client);
 		sequences.add(s);
 		newDrawing = false;
 	}
@@ -89,7 +89,7 @@ public class Server {
 		seqIterator=sequences.listIterator(sequences.size());
 		while(seqIterator.hasPrevious()){
 			current = seqIterator.previous();
-			if(current.numeroClient==client) {
+			if(current.clientId==client) {
 				   undoStack.add(current);
 				   seqIterator.remove();
 				   return;
@@ -110,7 +110,7 @@ public class Server {
 			undoIterator=undoStack.listIterator(undoStack.size());
 			while(undoIterator.hasPrevious()){
 			   current = undoIterator.previous();
-			   if(current.numeroClient==client) {
+			   if(current.clientId==client) {
 				   sequences.add(current);
 				   undoIterator.remove();
 				   return;

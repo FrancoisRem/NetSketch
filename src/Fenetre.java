@@ -392,7 +392,7 @@ public class Fenetre extends JFrame implements Runnable  {
 					seqAcc = new Sequence(taillePointeur,couleurPointeur);
 					x=event.getX();
 					y=event.getY();
-					seqAcc.ajouterPoint(x,y);
+					seqAcc.addPoint(x,y);
 					repaint();
 				}
 				
@@ -416,7 +416,7 @@ public class Fenetre extends JFrame implements Runnable  {
 				public void mouseDragged(MouseEvent event) {
 					   x=event.getX();
 					   y=event.getY();
-					   seqAcc.ajouterPoint(x,y);
+					   seqAcc.addPoint(x,y);
 					   repaint();
 					   
 				   }
@@ -464,15 +464,15 @@ public class Fenetre extends JFrame implements Runnable  {
 			g.setColor(couleurFond);
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 			for(Sequence s:listeSeq) {
-				g.setColor(s.couleur);
-				int r = s.taille;
-				for(Point p:s.listePoints) {
+				g.setColor(s.brushColor);
+				int r = s.brushSize;
+				for(Point p:s.points) {
 					g.fillOval(p.x-r/2,p.y-r/2,r,r);
 				}
 			}
-			for(Point p:seqAcc.listePoints) { //Pour ameliorer la fluidite pour le client en cours de dessin 
-				g.setColor(seqAcc.couleur);
-				int r = seqAcc.taille; //rayon disque
+			for(Point p:seqAcc.points) { //Pour ameliorer la fluidite pour le client en cours de dessin 
+				g.setColor(seqAcc.brushColor);
+				int r = seqAcc.brushSize; //rayon disque
 				g.fillOval(p.x-r/2,p.y-r/2,r,r);
 			}
 		}	  

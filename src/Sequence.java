@@ -7,44 +7,43 @@ public class Sequence implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public List<Point> listePoints;
-	public int taille;
-	public Color couleur;
-	public int numeroClient=-1;
+	public List<Point> points;
+	public int brushSize;
+	public Color brushColor;
+	public int clientId = -1;
 
 	public Sequence(int x, int y) {
-		// pour les tests
-		taille=0;
-		couleur=Color.BLACK;
+		// useful for debugging
+		brushSize = 0;
+		brushColor = Color.BLACK;
 		Point p = new Point(x,y);
-		listePoints = new ArrayList<Point>();
-		listePoints.add(p);
+		points = new ArrayList<Point>();
+		points.add(p);
 	}
 	
 	public Sequence(int t, Color c) {
-		// pour les tests
-		taille=t;
-		couleur=c;
-		listePoints = new ArrayList<Point>();
+		brushSize = t;
+		brushColor = c;
+		points = new ArrayList<Point>();
 	}
 	
 	public Sequence() {
-		// pour les tests
-		taille=0;
-		couleur=Color.BLACK;
-		listePoints = new ArrayList<Point>();
+		// useful for debugging
+		brushSize = 0;
+		brushColor = Color.BLACK;
+		points = new ArrayList<Point>();
 	}
 	
-	public void ajouterPoint(Point p) {
-		listePoints.add(p);
+	public void addPoint(Point p) {
+		points.add(p);
 	}
 	
-	public void ajouterPoint(int x, int y) {
+	public void addPoint(int x, int y) {
 		Point p = new Point(x,y);
-		listePoints.add(p);		
+		points.add(p);		
 	}
 	
-	public void infoClient(int n) {
-		this.numeroClient=n;
+	public void getClientNb(int n) {
+		this.clientId = n;
 	}
 }
