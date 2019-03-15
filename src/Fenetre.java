@@ -355,7 +355,7 @@ public class Fenetre extends JFrame implements Runnable  {
 		btnEnregistrer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SaisieNomSauvegarde frameSaisie = new SaisieNomSauvegarde(panelDessin);				
+				SaveWindow frameSaisie = new SaveWindow(panelDessin);				
 			}
 		});
 		toolBar.add(btnEnregistrer);
