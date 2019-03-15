@@ -20,10 +20,10 @@ public class Login extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel contentPanel;
 	private JTextField textField;
 	private JTextField txtLogin;
-	private static InetAddress adresseIP = null;
+	private static InetAddress adressIP = null;
 	private static String pseudo;
 	
 
@@ -34,14 +34,14 @@ public class Login extends JFrame {
 		Login frame = new Login();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		frame.textField.requestFocus(); //Place le curseur de frappe directement dans le champ de texte
+		frame.textField.requestFocus(); // Set the text cursor directly in the text field
 		try {
 			if (args.length >0) {
-				// S'il y a au moins un argument, prendre la machine dont le nom
-		        //   ou l'adresse est en argument
+				// If there is at least one argument, take the address of the machine in args
 				adresseIP = InetAddress.getByName(args[0]);
 		      	}
-			else {  // sinon, se connecter en local
+			else {
+				// Else, connect 
 		        adresseIP = InetAddress.getLocalHost();
 		      }
 		    } 
@@ -54,18 +54,18 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setFont(new Font("Dialog", Font.PLAIN, 17));
-		setTitle("Connexion NetSketch");
+		setTitle("NetSketch connexion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 428, 227);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPanel);
+		contentPanel.setLayout(null);
 		
 		textField = new JTextField();
 		textField.setBounds(156, 75, 120, 31);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		contentPane.add(textField);
+		contentPanel.add(textField);
 		textField.setColumns(10);
 		
 		
@@ -76,34 +76,32 @@ public class Login extends JFrame {
 		txtLogin.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtLogin.setText("Login");
 		txtLogin.setBounds(50, 74, 96, 32);
-		contentPane.add(txtLogin);
+		contentPanel.add(txtLogin);
 		txtLogin.setColumns(10);
 		
-		JButton btnValider = new JButton("Valider");
-		btnValider.setBounds(283, 79, 89, 23);
-		btnValider.addActionListener(new ActionListener() {
+		JButton btnValidate = new JButton("Validate");
+		btnValidate.setBounds(283, 79, 89, 23);
+		btnValidate.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			pseudo = textField.getText();
 			textField.setText("");
 			try {
-			// Ouverture de socket sur le port 8888 de la machine locale
+			// Socket opening on port 8888
 			Socket client = new Socket(adresseIP, 8888);
-			// Ouverture flux Ã©criture sur socket
-			ObjectOutputStream ecriture = new ObjectOutputStream(client.getOutputStream());
-			// Ouverture flux lecture sur socket
-			ObjectInputStream lecture = new ObjectInputStream(client.getInputStream());
-		    // Creation de l'ui 
-		    Fenetre f = new Fenetre(lecture, ecriture,pseudo);
+			// Writing stream opening on socket
+			ObjectOutputStream writing = new ObjectOutputStream(client.getOutputStream());
+			// Reading stream opening on socket
+			ObjectInputStream reading = new ObjectInputStream(client.getInputStream());
+		    // UI instantiation
+		    Fenetre f = new Fenetre(reading, writing,pseudo);
 		    f.setVisible(true);
 		    setVisible(false);
 			}catch(Exception e1) {
 				System.err.println(e1);
 			}
 		}
-	});
-		this.getRootPane().setDefaultButton(btnValider); //Fait en sorte que le bouton par défaut est valider ie on peut taper sur la touche entrée au lieu de cliquer sur le bonton
-		contentPane.add(btnValider);
-	}
-	
-	
+		});
+		this.getRootPane().setDefaultButton(btnValidate); // Make 'Validate' as default button to enable using Return on keyboard
+		contentPanel.add(btnValidate);
+	}	
 }
