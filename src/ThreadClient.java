@@ -7,7 +7,7 @@ public class ThreadClient extends Thread {
 	int numeroClient;
 	Server serveur;
 	Socket socketClient;
-	Donnee data;
+	Data data;
 	boolean stop;
 	
 	//Constructeur	
@@ -26,15 +26,15 @@ public class ThreadClient extends Thread {
 	      while ( !stop ) {
 	    	// Lecture de la derni�re s�quence entr�e par le client
 	    	  
-	    	  data = (Donnee) in.readObject();
+	    	  data = (Data) in.readObject();
 	    	  switch(data.getType()) {
 				case SEQUENCE:
-			        Sequence s = data.getSeq();
+			        Sequence s = data.getSequence();
 			        serveur.draw(numeroClient, s);
 			        serveur.updateClientsDrawing();
 					break;
 				case MESSAGE:
-					String msg = data.getMes();
+					String msg = data.getMessage();
 					serveur.chat(numeroClient, msg);
 					System.out.println("serveur recoit " + msg);
 					serveur.updateClientsChat();

@@ -36,7 +36,7 @@ public class Fenetre extends JFrame implements Runnable  {
 	
 	//Attributs pour gérer la connexion client/serveur
 	private LinkedList<Sequence> listeSeq;
-	private Donnee data;
+	private Data data;
 	private String msg;
 	private ArrayList<String> listeMsg;
 	private String nomClient;
@@ -135,7 +135,7 @@ public class Fenetre extends JFrame implements Runnable  {
 			public void actionPerformed(ActionEvent e) {
 				msg = zoneTexte.getText();
 				try {
-					out.writeObject(new Donnee(nomClient + " : " +msg));
+					out.writeObject(new Data(nomClient + " : " +msg));
 					System.out.println("Client envoie : " + msg);
 					zoneTexte.setText("");
 				} catch (IOException e1) {
@@ -155,13 +155,13 @@ public class Fenetre extends JFrame implements Runnable  {
 	public void run() {
 		try {
 			while (true) {
-				data = (Donnee) in.readObject();
+				data = (Data) in.readObject();
 				switch(data.getType()) {
-				case LISTESEQUENCES:
+				case SEQUENCESLIST:
 					listeSeq = data.getListSeq();
 					System.out.println("sequence recue");
 					break;
-				case LISTEMESSAGES:
+				case MESSAGESLIST:
 					listeMsg = data.getListMes();
 					System.out.println("message recu :" + listeMsg);
 					textArea.setText("");
@@ -243,7 +243,7 @@ public class Fenetre extends JFrame implements Runnable  {
 		btnNouveau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-			          out.writeObject(new Donnee(2));
+			          out.writeObject(new Data(2));
 			          panelDessin.viderSeqAcc();
 				} catch(IOException e1) {
 					// TODO Auto-generated catch block
@@ -259,7 +259,7 @@ public class Fenetre extends JFrame implements Runnable  {
 		btnDfaire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					out.writeObject(new Donnee(0));
+					out.writeObject(new Data(0));
 					System.out.println("Client envoie ctrl-z");
 					panelDessin.viderSeqAcc();
 				} catch (IOException e1) {
@@ -276,7 +276,7 @@ public class Fenetre extends JFrame implements Runnable  {
 		btnRefaire.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					out.writeObject(new Donnee(1));
+					out.writeObject(new Data(1));
 					System.out.println("Client envoie ctrl-y");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -401,7 +401,7 @@ public class Fenetre extends JFrame implements Runnable  {
 				{
 					//listeSequences.add(seqAcc);
 					try {
-						out.writeObject(new Donnee(seqAcc));
+						out.writeObject(new Data(seqAcc));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

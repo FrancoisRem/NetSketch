@@ -33,7 +33,7 @@ public class Server {
 	//Drawing
 	public void sendDrawing(ObjectOutputStream out) {
 	    try {
-	      out.writeObject(new Donnee(sequences));
+	      out.writeObject(new Data(sequences));
 	      out.reset();   
 	      out.flush();
 	   }
@@ -62,7 +62,7 @@ public class Server {
 	//Chat
 	public void sendChat(ObjectOutputStream out) {
 	    try {
-	      out.writeObject(new Donnee(messages));
+	      out.writeObject(new Data(messages));
 	      out.reset();   // important (Java documentation) 
 	      out.flush();
 	      System.out.println("Sending chat"); // useful for debugging
