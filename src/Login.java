@@ -93,7 +93,7 @@ public class Login extends JFrame {
 			// Reading stream opening on socket
 			ObjectInputStream reading = new ObjectInputStream(client.getInputStream());
 		    // UI instantiation
-		    Fenetre f = new Fenetre(reading, writing,pseudo);
+		    UInterface f = new UInterface(reading, writing,pseudo);
 		    f.setVisible(true);
 		    setVisible(false);
 			}catch(Exception e1) {
