@@ -38,11 +38,11 @@ public class Login extends JFrame {
 		try {
 			if (args.length >0) {
 				// If there is at least one argument, take the address of the machine in args
-				adresseIP = InetAddress.getByName(args[0]);
+				adressIP = InetAddress.getByName(args[0]);
 		      	}
 			else {
 				// Else, connect 
-		        adresseIP = InetAddress.getLocalHost();
+		        adressIP = InetAddress.getLocalHost();
 		      }
 		    } 
 		    catch (Exception e) {
@@ -87,7 +87,7 @@ public class Login extends JFrame {
 			textField.setText("");
 			try {
 			// Socket opening on port 8888
-			Socket client = new Socket(adresseIP, 8888);
+			Socket client = new Socket(adressIP, 8888);
 			// Writing stream opening on socket
 			ObjectOutputStream writing = new ObjectOutputStream(client.getOutputStream());
 			// Reading stream opening on socket
